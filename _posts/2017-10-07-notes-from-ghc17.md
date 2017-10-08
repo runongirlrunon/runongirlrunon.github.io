@@ -77,3 +77,7 @@ The closing keynote was interesting and lively--a really great end to the week. 
 Now back to my original point of feeling unfulfilled and impatient. Really, the first part comes from wanting to do all the things and not getting to do them. (Seriously though, I'll volunteer to help with scheduling next year if y'all are looking.) Eventually, one of us will invent a way to be in 20 places at once and solve that, though. The impatience is definitely due to coming away feeling so eager to get to work building even more cool shit than I've already built. Not just building software, too--building relationships, mentorships, my career in general! My mountain is waiting, time to get on my way.
 
 See you next year, GHC!
+
+---
+
+Addendum: I should mention that one of the most important parts of GHC is actually the networking. I mostly wanted to focus this post on the talks I went to and the speakers I heard, but it cannot be said enough how valuable was the time I spent bonding with other women also fighting their way to make their way in technical roles. ***Sisterhood is powerful.***
