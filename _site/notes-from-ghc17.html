@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="generator" content="Jekyll">
+
+	<title>Notes from #GHC17</title>
+  <meta name="description" content="Blog, portfolio, etc.">
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css">
+
+	<!-- RSS -->
+	<link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+	<!-- Font Awesome CSS-->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+	<div id="wrap">
+
+	  	<!-- Navigation -->
+	  	<nav id="nav">
+	<div id="nav-list">
+		<a href="/">Home</a>
+
+		<!-- Nav pages -->
+	  
+	    
+	  
+	    
+	      <a href="/about" title="About Me">About Me</a>
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+    
+    <!-- Nav links -->
+	  <a target="_blank" href="https://github.com/runongirlrunon"><i class="fa fa-github"></i></a>
+<a target="_blank" href="https://linkedin.com/in/runongirlrunon"><i class="fa fa-linkedin"></i></a>
+<a target="_blank" href="https://twitter.com/runongirlrunon"><i class="fa fa-twitter"></i></a>
+<a target="_blank" href="mailto:runongirlrunon@gmail.com"><i class="fa fa-envelope"></i></a>
+
+
+	</div>
+  
+  <!-- Nav footer -->
+	
+	  <footer>
+	
+	<span>version 1.0.0</span>
+
+</footer>
+	
+
+</nav>
+
+
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+
+      <!-- Header -->
+      
+        <header id="header" class="parent justify-spaceBetween">
+  <div class="inner w100 relative">
+    <span class="f-left">
+      <a href="/">
+        <h1>
+          <span>lindsey</span>anne
+        </h1>
+      </a>
+    </span>
+    <span id="nav-links" class="absolute right bottom">
+      <!-- Nav pages -->
+	    
+	      
+	    
+	      
+	        <a href="/about" title="About Me">About Me</a>
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+
+      <!-- Nav links -->
+	    <a target="_blank" href="https://github.com/runongirlrunon"><i class="fa fa-github"></i></a>
+<a target="_blank" href="https://linkedin.com/in/runongirlrunon"><i class="fa fa-linkedin"></i></a>
+<a target="_blank" href="https://twitter.com/runongirlrunon"><i class="fa fa-twitter"></i></a>
+<a target="_blank" href="mailto:runongirlrunon@gmail.com"><i class="fa fa-envelope"></i></a>
+
+
+    </span>
+  </div>
+</header>
+
+      
+
+    <!-- Main content -->
+	  <div id="container">
+
+		<main>
+
+			<article id="post-page">
+	<h2>Notes from #GHC17</h2>		
+	<time datetime="2017-10-07T00:00:00-07:00" class="by-line">07 Oct 2017</time>
+	<div class="content">
+
+		<p>I’m writing this from the plane on my way home from my first time attending the annual Grace Hopper Celebration of Women in Computing. My thoughts are still sort of scattered but I wanted to get some of it down before life back on the ground gets too distracting again. (I swear I have a half-finished post about SFHacks that’s coming too…)</p>
+
+<p>I <a href="https://twitter.com/runongirlrunon/status/916710749594095617">tweeted</a> a bit about all of it earlier today but that was before my coffee had kicked in so I wasn’t sure how to fully process what I was thinking about. I finally managed to pin down that my dominant feeling today has been somewhere between unfulfilled and impatient. I’ve been trying to figure out the source of it since I woke up, and I think it comes from two places: not getting to do enough stuff/see enough sessions at the conference due to the weird block scheduling, and a solidification of the nagging feeling I’ve had that I have got a <strong>lot</strong> of work ahead of me in my career.</p>
+
+<hr />
+
+<blockquote class="instagram-media" data-instgrm-captioned="" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BZ0-VQwglTH/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">Here we gooooo! #ghc17</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by miss lindsey (@runongirlrunon) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-10-04T13:26:16+00:00">Oct 4, 2017 at 6:26am PDT</time></p></div></blockquote>
+<script async="" defer="" src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<p>The opening keynote was more inspiring than I had expected it to be (which made me wonder why I was expecting it to be less than that in the first place). A couple highlights:</p>
+<ul>
+  <li><a href="https://twitter.com/drfeifei">Dr. Fei-Fei Le</a> made me reconsider what it means to be human. Not my own humanity, but the humanity inherent in the things we create. We call it “artificial intelligence” and give it to robots and machines… but there’s still something human at its center, because it is <em>created</em> by humans.</li>
+  <li>I was absolutely impressed and humbled by <a href="https://twitter.com/Dr_Black">Dr. Sue Black, OBE</a> speaking so frankly and honestly about the horrible experiences she had before her career in tech began. How many people do you hear walk out in front of 18,000 people and open with a story about their then-spouse’s death threats? And after all she’s been through, she just seems so pleasant and warm. Truly a resilient being.</li>
+  <li>So many cheers for <a href="https://twitter.com/melindagates">Melinda Gates</a> on all points. Her humor and wit are unrivaled; her brain is a force to be reckoned with. #NoMoreMemos</li>
+</ul>
+
+<hr />
+
+<p>One really huge thing I got out of this week is that my dreams got a lot bigger by the end of it, partially due to talking with Marilyn, who is a software engineer at Blue Origin. I hadn’t deeply considered that someday I might get to build rockets or the software that rocket launching teams use.</p>
+
+<p>Turns out that even the people who build spaceships and rockets are just regular people like you and me. I managed to catch <a href="https://twitter.com/runongirlrunon/status/915980981462585346">a panel of five awesome women</a> who work in various aerospace companies speaking about their jobs, and I learned that it’s just like any other software engineering job, just with different risks involved. That, in turn, made me realize that there’s a lot of industries I hadn’t considered pursuing before.</p>
+
+<p>The sky is the limit on where I could find myself in the future–and maybe that isn’t even the limit, because I could one day build something that goes into outer space. Eight-year-old me who used to love staring at the stars and learning about planets is SUPER excited.</p>
+
+<hr />
+
+<p>The most inspiring talk I saw was featured speaker Stephanie Lampkin, CEO of Blendoor, telling the story of how she came from less-than-stellar beginnings (drug addict mom, never met her dad, grew up poor), made her way through Stanford and MIT, and still managed to get told that she “wasn’t technical enough” when she applied for an advanced technical role at Google. “We’ll call you when we get a sales or marketing position for you.” Ummm, excuse me? One of her many “twirls” (which is a MUCH better word than “pivot”) that eventually led her to create her own company.</p>
+
+<p>My favorite quote was during the audience Q&amp;A when she was talking about unconscious bias: “Unconscious bias is not unconscious; it’s conscious. These men know what they’re doing and they just <a href="https://twitter.com/runongirlrunon/status/916003312922701824">don’t give a fuck</a>.”</p>
+
+<p><img src="https://media.giphy.com/media/3o6gaUYip73ooXZWEw/giphy.gif" alt="beyonce twirling gif" /></p>
+
+<hr />
+
+<p>My favorite career guidance talk just happened to be the last day of the conference. The session was called “So You Want To Be An Executive?” A panel of five executive-level leading women shared their experiences of how their lives and careers and even day-to-day jobs changed after moving from management into executive roles. I took a <strong>LOT</strong> of notes, which I have tried to condense for this post as best I could, but it’s hard to condense an hour of incredibly valuable life advice into a few paragraphs. The takeaways, which I’ve paraphrased from the speakers:</p>
+
+<h6 id="tammarrian-rogers-qa-director-of-engineering-at-snap-inc"><a href="https://twitter.com/tammarrian">Tammarrian Rogers</a>, QA Director of Engineering at Snap, Inc.</h6>
+<ul>
+  <li>Your values should always be at the center of your decisions. When you can truly define what your values are (i.e. what does it mean to value “family”? Do you value <em>time</em> with them, do you value <em>providing</em> for them, or something else?), then it becomes easier to make decisions and communicate your needs, and that is when you will thrive.</li>
+  <li>Leadership requires vision. That doesn’t mean <em>having</em> all the answers; it means <em>finding</em> the answers and steering the ship.</li>
+  <li>Bring your whole self to the table every day.</li>
+  <li>Remember that every skill you have is applicable to your work–your outside life is in addition to your work life, not separate from it, so use what you learn outside to make yourself better in your career.</li>
+</ul>
+
+<h6 id="rebecca-norlander-ceo-of-samepage-health"><a href="https://twitter.com/rebatwork">Rebecca Norlander</a>, CEO of SamePage Health</h6>
+<ul>
+  <li>Remember: everyone puts on their pants one leg at a time.</li>
+  <li>Leadership at the exec level (versus management level) means not doing the job of the people who are working for you anymore. If you’re doing that and you feel comfortable doing it, then you’re not doing your own job. (Tammarrian added that if you’re stepping into someone else’s role, then you’re not trusting them to do what you hired them to do. Good points all around.)</li>
+  <li>The “Five P’s” is a really great rubric for designing how you’re going to manage a project. In order, you should define the <strong>purpose</strong> of the project (why are we doing this?), the <strong>principles</strong> by which you wish to operate, <strong>prioritization</strong> of tasks (which requires actually telling people what the priorities are, because they might not know even if they seem obvious to you), <strong>plan</strong> and process (how is this going to work, how do we move forward, what are we going to measure), and when you’ve got all that in order then you design your team, or your <strong>people</strong>.</li>
+  <li>Experimentation will naturally lead to failure. Your entire career will be built on learnings from failures, so don’t shy away from something because you’re afraid to fail.</li>
+  <li>Turns out lots of people like to give advice, so finding a mentor isn’t actually that hard. What you often need are <em>sponsors</em>–people who are not your direct manager(s) who will help other people know how awesome you are and back you up when you need it.</li>
+  <li>Interactive and in-depth product reviews (not just status updates) will help you understand and lead parts of the business you are unfamiliar with. Understand the difficulties and the hot spots and the underlying architecture–you’re smart, so trust yourself to know how to gather the data and ask the right questions. (Tammarrian added to this that deep dives are critical to understanding not just the product but also the <em>people</em> working on it and how they built it, why they made the decisions they did, etc.)</li>
+</ul>
+
+<h6 id="alex-tibbetts-head-of-brand-moments-at-youtube"><a href="https://twitter.com/tibbea">Alex Tibbetts</a>, Head of Brand Moments at YouTube</h6>
+<ul>
+  <li>On executive presence: “Fill up the room.” But what does that mean? It means feeling like you own the place and not letting anyone or anything intimidate you.</li>
+  <li>If you need something you don’t have–invent it!</li>
+  <li>Develop your writing skills now, because people will remember your voice, and that may lead to good things for you down the road. (This is one of the ways she ended up in her role; an email she wrote started circulating, which got her name and voice recognition, and ultimately led people to know how great and capable she was at being a thought leader.)</li>
+  <li>People will always judge you, so don’t spend your time worrying about it.</li>
+</ul>
+
+<h6 id="liz-pearce-ceo-of-liquidplanner"><a href="https://twitter.com/lizprc">Liz Pearce</a>, CEO of LiquidPlanner</h6>
+<ul>
+  <li>You’re going to be stressed at any job, and it turns out the stress isn’t all that different whether you’re early in your career or whether you’re in an exec level position. So, you may as well aim high.</li>
+  <li>Growing your career is like developing calluses; every time you do it, you get a little tougher. Being uncomfortable is a sign that you’re growing. Also, it’s a marathon, not a sprint, so pace yourself and don’t burn out.</li>
+  <li>Feelings and emotions are not permanent–good or bad–so don’t get attached to them.</li>
+  <li>YouTube is really helpful for learning new skills, like finance and sales.</li>
+  <li>On sleeping at night with so many livelihoods depending on you: “Someone has to make all the hard decisions, so it may as well be you.”</li>
+  <li>Sometimes you can literally just ask for a position. (This is how she became Director of Marketing at LiquidPlanner before eventually becoming CMO, COO, and then CEO.)</li>
+</ul>
+
+<h6 id="gail-giacobbe-vp-of-product-management-at-godaddy"><a href="https://twitter.com/ggiacobbe">Gail Giacobbe</a>, VP of Product Management at GoDaddy</h6>
+<p>(Note: Gail mostly facilitated, but she also gave a few great pieces of advice during the audience Q&amp;A.)</p>
+<ul>
+  <li>Mentorship can evolve into sponsorship, so keep those relationships alive.</li>
+  <li>Non-profits and volunteering can help you learn a lot, as most non-profits are microcosms of larger businesses that can help you expand and diversify your skillset.</li>
+</ul>
+
+<hr />
+
+<blockquote class="instagram-media" data-instgrm-captioned="" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:37.4537037037037% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BZ6y-qvA4l8/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">Dr. @tellewhitney, outgoing CEO of @anitaborginstitute, accepting her lifetime achievement award. I’m so honored to even be in a room with her. What an inspiration! #GHC17</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by miss lindsey (@runongirlrunon) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-10-06T19:42:31+00:00">Oct 6, 2017 at 12:42pm PDT</time></p></div></blockquote>
+<script async="" defer="" src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<p>The closing keynote was interesting and lively–a really great end to the week. We said goodbye to outgoing Anita Borg Institute President and CEO, <a href="https://twitter.com/TelleWhitney">Dr. Telle Whitney</a>, and welcomed her successor, <a href="https://twitter.com/BrendaDardenW">Dr. Brenda Darden Wilkerson</a> into the role. Awards were handed out, speeches were spoken, keynotes were presented, and facilitating it all with some amazing stand-up comedy-level humor was <a href="https://twitter.com/NoraDenzel">Nora Denzel</a>. (By the way, if you’re reading this, Nora, I would like to personally invite you to facilitate literally everything ever from now until forever. You are my #LifeGoals.)</p>
+
+<p>Now back to my original point of feeling unfulfilled and impatient. Really, the first part comes from wanting to do all the things and not getting to do them. (Seriously though, I’ll volunteer to help with scheduling next year if y’all are looking.) Eventually, one of us will invent a way to be in 20 places at once and solve that, though. The impatience is definitely due to coming away feeling so eager to get to work building even more cool shit than I’ve already built. Not just building software, too–building relationships, mentorships, my career in general! My mountain is waiting, time to get on my way.</p>
+
+<p>See you next year, GHC!</p>
+
+<hr />
+
+<p>Addendum: I should mention that one of the most important parts of GHC is actually the networking. I mostly wanted to focus this post on the talks I went to and the speakers I heard, but it cannot be said enough how valuable was the time I spent bonding with other women also fighting their way to make their way in technical roles. <strong><em>Sisterhood is powerful.</em></strong></p>
+
+		
+	</div>
+</article>
+
+
+
+	  </main>
+
+		  <!-- Pagination links -->
+      
+
+	  </div>
+
+	    <!-- Footer -->
+	    <footer><span>&copy;2017-2019 - Theme by <a href="https://github.com/dyutibarma/monochrome">Monochrome</a></span></footer>
+
+
+	    <!-- Script -->
+      <script src="/js/main.js"></script>	
+
+
+	</div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105709810-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

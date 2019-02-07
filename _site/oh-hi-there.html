@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="generator" content="Jekyll">
+
+	<title>Oh, hi there.</title>
+  <meta name="description" content="Blog, portfolio, etc.">
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css">
+
+	<!-- RSS -->
+	<link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+	<!-- Font Awesome CSS-->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+	<div id="wrap">
+
+	  	<!-- Navigation -->
+	  	<nav id="nav">
+	<div id="nav-list">
+		<a href="/">Home</a>
+
+		<!-- Nav pages -->
+	  
+	    
+	  
+	    
+	      <a href="/about" title="About Me">About Me</a>
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+    
+    <!-- Nav links -->
+	  <a target="_blank" href="https://github.com/runongirlrunon"><i class="fa fa-github"></i></a>
+<a target="_blank" href="https://linkedin.com/in/runongirlrunon"><i class="fa fa-linkedin"></i></a>
+<a target="_blank" href="https://twitter.com/runongirlrunon"><i class="fa fa-twitter"></i></a>
+<a target="_blank" href="mailto:runongirlrunon@gmail.com"><i class="fa fa-envelope"></i></a>
+
+
+	</div>
+  
+  <!-- Nav footer -->
+	
+	  <footer>
+	
+	<span>version 1.0.0</span>
+
+</footer>
+	
+
+</nav>
+
+
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+
+      <!-- Header -->
+      
+        <header id="header" class="parent justify-spaceBetween">
+  <div class="inner w100 relative">
+    <span class="f-left">
+      <a href="/">
+        <h1>
+          <span>lindsey</span>anne
+        </h1>
+      </a>
+    </span>
+    <span id="nav-links" class="absolute right bottom">
+      <!-- Nav pages -->
+	    
+	      
+	    
+	      
+	        <a href="/about" title="About Me">About Me</a>
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+
+      <!-- Nav links -->
+	    <a target="_blank" href="https://github.com/runongirlrunon"><i class="fa fa-github"></i></a>
+<a target="_blank" href="https://linkedin.com/in/runongirlrunon"><i class="fa fa-linkedin"></i></a>
+<a target="_blank" href="https://twitter.com/runongirlrunon"><i class="fa fa-twitter"></i></a>
+<a target="_blank" href="mailto:runongirlrunon@gmail.com"><i class="fa fa-envelope"></i></a>
+
+
+    </span>
+  </div>
+</header>
+
+      
+
+    <!-- Main content -->
+	  <div id="container">
+
+		<main>
+
+			<article id="post-page">
+	<h2>Oh, hi there.</h2>		
+	<time datetime="2018-10-09T00:00:00-07:00" class="by-line">09 Oct 2018</time>
+	<div class="content">
+
+		<p>It’s been just over a year since I updated this thing, so, figure it’s about time to post something.</p>
+
+<h3 id="quick-life-update">Quick life update</h3>
+<p>The last year has been a whirlwind. Moved into my first big kid apartment in November, graduated with my BS in CS from SFSU in December, took my mom on my first trip overseas to Rome in February, adopted an adorable little rescue pibble named Isis in April, released records with both of my two bands (within a week of each other, actually) in September. The other day, one of my bands opened for one of my favorite bands at one of my favorite venues, so I’m going to be riding that high for a while. Life is fantastic.</p>
+
+<h3 id="quick-work-update">Quick work update</h3>
+<p>I’m still working at Grand Rounds on the Data Engineering team. We’ve been busy over the last quarter or so launching v2.0 of our insurance claims pipeline. The part of the project I’m responsible for is building a service that creates production-quality test data. I didn’t intend to follow the fun “neighborhood” theme we’ve had going on with some of our recent repos, but my PM pointed out last week that calling my project the <code class="highlighter-rouge">laundromat</code> has done exactly that. (Whatever, it’s cute.) I’m building it as a Ruby script (without Rails, which has been an interesting exercise) that reads from <code class="highlighter-rouge">STDIN</code>, scrubs each line of in file and replaces all the (PII)[https://en.wikipedia.org/wiki/Personally_identifiable_information] with fake names/addresses/etc., and then writes it back to <code class="highlighter-rouge">STDOUT</code> in the same format as the input. The purpose is to get us high quality data for testing our system without leaking any personal information from our patients. Huge shoutout to <code class="highlighter-rouge">ryanwood</code> for writing the (slither gem)[https://github.com/ryanwood/slither] because it’s made my work about 300% easier; funny how a gem that hasn’t been updated in 6+ years can still provide so much value.</p>
+
+<p>I’ve also been practicing a lot of string/file/IO manipulation using the command line, so even though most of my work focus is Ruby-based, I figure it’s probably a good idea to share some of the other fun things I learn here while I go.</p>
+
+<hr />
+
+<h2 id="using-diff-for-sanity-checks">Using <code class="highlighter-rouge">diff</code> for sanity checks</h2>
+
+<p>For each insurance vendor’s file format that we ingest, I need to build a JSON file that tells my <code class="highlighter-rouge">Laundry::Machine</code> (believe me, the analogy gets sillier as I go) what <code class="highlighter-rouge">Laundry::Detergents</code> are needed to <code class="highlighter-rouge">#scrub</code> each line of the input. My process for development is basically:</p>
+
+<ol>
+  <li>Create the JSON file and add whatever metadata I need to it (fixed width file vs. CSV, what the delimiters are for lines and columns, etc.).</li>
+  <li>List the column headers from the vendor’s data dictionary.</li>
+  <li>Test to ensure I’m getting the correct in/output when not changing anything.</li>
+  <li>Indicate the transformations and test my in/output again to ensure the data still looks okay.</li>
+  <li>Generate a new test file and put it through our development pipeline to see if anything breaks.</li>
+  <li>Report any bugs to the rest of the team.</li>
+  <li>Rinse and repeat.</li>
+</ol>
+
+<p>I mentioned earlier that the <code class="highlighter-rouge">laundromat</code> needs to write the same format as it reads in; this is important mostly because that’s where Claims Pipeline v1.0 ran into many bugs as we built it. Line endings could be weird (thank you Windows for <code class="highlighter-rouge">\r\n</code>), whitespace could be important or unimportant, fixed width files are generally a pain in the rear, etc. The test files we built previously were hand-edited to remove PII, and text editors sometimes like to remove things that are actually really important to control for in our production system, so we ran into several occasions where a file would stop moving through the pipeline due to some special case we weren’t expecting. Hence, when designing the <code class="highlighter-rouge">laundromat</code>, I wanted to ensure I’m getting the <em>exact</em> same input and output when I’m not doing any transformations on the data. That’s where <code class="highlighter-rouge">diff</code> comes in.</p>
+
+<p>In step 3, I’ll generally use one of our previously-created sample files, let’s call it <code class="highlighter-rouge">$SAMPLE_FILE</code> for now. Now, I knew that <code class="highlighter-rouge">diff</code> could take two files as arguments, but what I didn’t know is that it can also take the output of a command, like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(command_one) &lt;(command_two)
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">&lt;()</code> is the bash-specific <em>substitution</em> syntax, which passes the output of whatever is inside to the input of wherever you’re directing it. It’s handy when you can’t use pipes, like with our friend <code class="highlighter-rouge">diff</code> up there.</p>
+
+<p>Further, you can add all kinds of fun stuff inside the parentheses to dig deeper into whatever you’re trying to do. Generally, though, I’ll just start with a single line of my sample file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(head -1 $SAMPLE_FILE) &lt;(head -1 $SAMPLE_FILE | ./laundromat.rb vendor_name)
+</code></pre></div></div>
+
+<p>If this produces no output, I can go on my merry way to step 4 of my dev cycle. If it does, though, it’s time to start adding things into my diff command to figure out exactly what I missed. Usually the first thing from here is to pipe the <code class="highlighter-rouge">diff</code> output into <code class="highlighter-rouge">less</code> with the <code class="highlighter-rouge">-S</code> option, which will paginate the output horizontally, so I can (hopefully) visually see exactly where it’s not lining up between the input and output.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(head -1 $SAMPLE_FILE) &lt;(head -1 $SAMPLE_FILE | ./laundromat.rb vendor_name) | less -S
+</code></pre></div></div>
+
+<p>If I don’t see anything obvious right away, I’ll add more stuff to figure out which field is giving me trouble. Since it’s a CSV, I can replace the column delimiters with a newline and then run the diff on that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(head -1 $SAMPLE_FILE | tr , '\n') &lt;(head -1 $SAMPLE_FILE | ./laundromat.rb vendor_name | tr , '\n')
+</code></pre></div></div>
+
+<p>If this <strong>still</strong> doesn’t show me anything obvious, like in this example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(head -1 $SAMPLE_FILE | tr , '\n') &lt;(head -1 $SAMPLE_FILE | ./laundromat.rb vendor_name | tr , '\n')
+63c63
+&lt; "46912003601220"
+---
+&gt; "46912003601220"
+</code></pre></div></div>
+
+<p>then I get to bust out another tool I love called <code class="highlighter-rouge">od</code>, which stands for “octal dump”. Adding the <code class="highlighter-rouge">-c</code> option makes it show me the actual characters from the input, so it’s more obvious what I’m looking at and I don’t have to decipher which character <code class="highlighter-rouge">031466</code> stands for.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ diff &lt;(head -1 $SAMPLE_FILE | tr , '\n' | od -c) &lt;(head -1 $SAMPLE_FILE | ./laundromat.rb vendor_name | tr , '\n' | od -c)
+36,37c36,37
+&lt; 0001060    1   2   0   0   3   6   0   1   2   2   0   "  \r  \n        
+&lt; 0001076
+---
+&gt; 0001060    1   2   0   0   3   6   0   1   2   2   0   "  \n            
+&gt; 0001075
+</code></pre></div></div>
+
+<p>And there we have our culprit–the freakin’ Windows carriage return. (╯°□°）╯︵ ┻━┻ Now I can control for that in my script and head forward.</p>
+
+<hr />
+
+<h3 id="well-that-was-fun">Well, that was fun</h3>
+
+<p>I plan to publish more of these style of blog posts, because if nothing else they’re pretty fun to write (and, I hope, more entertaining to read than StackOverflow). Stay tuned!</p>
+
+		
+	</div>
+</article>
+
+
+
+	  </main>
+
+		  <!-- Pagination links -->
+      
+
+	  </div>
+
+	    <!-- Footer -->
+	    <footer><span>&copy;2017-2019 - Theme by <a href="https://github.com/dyutibarma/monochrome">Monochrome</a></span></footer>
+
+
+	    <!-- Script -->
+      <script src="/js/main.js"></script>	
+
+
+	</div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105709810-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
