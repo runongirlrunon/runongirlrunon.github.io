@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://runongirlrunon.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://runongirlrunon.github.io/" rel="alternate" type="text/html" /><updated>2019-02-07T00:03:07-08:00</updated><id>https://runongirlrunon.github.io/feed.xml</id><title type="html">Lindsey Anne | Portfolio</title><subtitle>Blog, portfolio, etc.</subtitle><author><name>Lindsey Anne</name><email>runongirlrunon@gmail.com</email></author><entry><title type="html">Oh, hi there.</title><link href="https://runongirlrunon.github.io/oh-hi-there" rel="alternate" type="text/html" title="Oh, hi there." /><published>2018-10-09T00:00:00-07:00</published><updated>2018-10-09T00:00:00-07:00</updated><id>https://runongirlrunon.github.io/oh-hi-there</id><content type="html" xml:base="https://runongirlrunon.github.io/oh-hi-there">&lt;p&gt;It’s been just over a year since I updated this thing, so, figure it’s about time to post something.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="https://runongirlrunon.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://runongirlrunon.github.io/" rel="alternate" type="text/html" /><updated>2019-06-06T16:13:53-07:00</updated><id>https://runongirlrunon.github.io/feed.xml</id><title type="html">Lindsey Anne | Portfolio</title><subtitle>Blog, portfolio, etc.</subtitle><author><name>Lindsey Anne</name><email>runongirlrunon@gmail.com</email></author><entry><title type="html">From the archives: Learning to Sight Along the Space Capsule</title><link href="https://runongirlrunon.github.io/from-the-archives-learning-to-sight-along-the-space-capsule" rel="alternate" type="text/html" title="From the archives: Learning to Sight Along the Space Capsule" /><published>2019-06-06T00:00:00-07:00</published><updated>2019-06-06T00:00:00-07:00</updated><id>https://runongirlrunon.github.io/from-the-archives-learning-to-sight-along-the-space-capsule</id><content type="html" xml:base="https://runongirlrunon.github.io/from-the-archives-learning-to-sight-along-the-space-capsule">&lt;p&gt;&lt;em&gt;This post was originally published on 2016-12-29 when I was on the Data Engineering team at Grand Rounds. Enjoy!&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Testing does not have to be complicated, but sometimes it can turn into spaghetti just like any other code. &lt;a href=&quot;https://www.youtube.com/watch?v=URSWYvyc42M&quot;&gt;This talk&lt;/a&gt; by Sandi Metz at Railsconf 2013 inspired me to revisit some of the unit tests for one of our services that relies heavily on FTP and SFTP connections.&lt;/p&gt;
+
+&lt;h5 id=&quot;why-are-my-tests-failing&quot;&gt;Why are my tests failing?&lt;/h5&gt;
+
+&lt;p&gt;The previous test suite for this service used a gem that was originally created as a mocked framework for testing FTP connection behaviors. However, a few key problems existed with this solution:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The gem hasn’t been maintained in a couple years, which started to cause intermittent spec failures.&lt;/li&gt;
+  &lt;li&gt;The gem doesn’t support SFTP connections, which our service relies much more heavily on than FTP.&lt;/li&gt;
+  &lt;li&gt;The gem doesn’t actually mock anything. It starts up a local FTP server, runs the tests, and then shuts the server down. Each test that’s run against it is generating a real response, albeit locally. This not only took up a lot of time (starting and stopping the local server before and after each spec), but was also another source of intermittent failures.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So, after creating a plan of attack, I rewrote or deleted every single test that used this gem. Each test was also re-evaluated for “sighting along the space capsule,” as Sandi Metz calls it. Any test that was written for a private method, a message sent to the object’s self, or an implementation detail was scrutinized (and most of them deleted), which exposed the true underlying issue: almost every single test we’d written that used the gem was an &lt;em&gt;implementation&lt;/em&gt; test, not an &lt;em&gt;interface&lt;/em&gt; test.&lt;/p&gt;
+
+&lt;p&gt;External responses are supposed to be completely mocked out in unit testing, not make actual calls to an API or server. Tests exist to make sure &lt;em&gt;our&lt;/em&gt; code works as expected, not to verify that no errors are raised when making external requests. A unit test that requires a response from an outside source is already a broken test; save those for integration tests instead.&lt;/p&gt;
+
+&lt;h5 id=&quot;reframing-our-point-of-view&quot;&gt;Reframing our point of view&lt;/h5&gt;
+
+&lt;p&gt;Here’s an example to illustrate my point. Let’s say we have an object whose job is to get a list of files from a specific folder on an FTP server. For brevity’s sake, let’s define it like this, with the nitty gritty details fleshed out elsewhere:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    class FtpThing
+      def get_list_of_files(username, password, folder_name)
+        @some_connection.open(username, password)
+        list_of_files = @some_connection.list(folder_name)
+        @some_connection.close
+        list_of_files
+      end
+    end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, one option for testing this is the way we did it before, something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    let(:ftp_thing) { FtpThing.new }
+    let(:list) { [‘file1.txt’, ‘file2.txt'] }
+
+    before do
+      # spin up the “mock&quot; (real) server
+      # put a (real) file or two in a folder on the server
+    end
+
+    it ‘gives me the right list of files’ do
+      expect(ftp_thing.get_list_of_files(‘username’, ‘password’, ‘folder_name’)).to eq(list)
+      ftp_thing.get_list_of_files(‘username’, ‘password’, ‘folder_name’)
+    end
+
+    after do
+      # shut down the server
+    end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the surface, this doesn’t look terrible. It’s testing the value returned from &lt;code class=&quot;highlighter-rouge&quot;&gt;getListOfFiles&lt;/code&gt;, right? Yay, that’s what we want! But… not quite. We’ve started a real server, and we hope that a) it started in time for our tests to run, and b) it doesn’t fail or raise any errors, which is how our tests will pass. Instead, we need to &lt;code class=&quot;highlighter-rouge&quot;&gt;allow&lt;/code&gt; a mocked response and set up our expectation this way:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    let(:mock_connection) { double(‘ftp’) }
+    let(:ftp_thing) { FtpThing.new }
+    let(:list) { [‘file1.txt’, ‘file2.txt'] }
+
+    before do
+      ftp_thing.set_instance_variable(:@some_connection, mock_connection)
+      allow(mock_connection).to receive(:open)
+      allow(mock_connection).to receive(:list).and_return(list)
+      allow(mock_connection).to receive(:close)
+    end
+
+    it ‘gives me the right list of files’ do
+      expect(ftp_thing.get_list_of_files(‘username’, ‘password’, ‘folder_name’)).to eq(list)
+      ftp_thing.get_list_of_files(‘username’, ‘password’, ‘folder_name’)
+    end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the difference? We aren’t starting a server or making a real external call; we’re just pretending that it happened and gave us the right response. The true test is whether &lt;em&gt;our&lt;/em&gt; code is giving us the right value back after it makes an external call. This is also an easy way to test error responses, too! I can allow my connection to raise an error, and then test my error handling from there, rather than trying to fake out a whole server thing.&lt;/p&gt;
+
+&lt;p&gt;Bonus points: If I want to change the implementation of my server call–maybe I want to change how it connects or opens the connection, or something similar–then my tests are not broken and I can continue on my merry way.&lt;/p&gt;
+
+&lt;h5 id=&quot;the-moral-of-the-story&quot;&gt;The moral of the story&lt;/h5&gt;
+
+&lt;p&gt;No project is complete without some beautiful numerical data to back it up, so here’s some numbers to show off just how much time this saves us. Running the entire test suite on the application before:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Finished in 2 minutes 56.1 seconds (files took 2.72 seconds to load)
+    172 examples, 0 failures
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And after:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Finished in 5.67 seconds (files took 2.77 seconds to load)
+    155 examples, 0 failures
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s a &lt;em&gt;97% time improvement.&lt;/em&gt; Precious minutes of time regained, and no more intermittent failures as well.&lt;/p&gt;
+
+&lt;p&gt;The moral of the story? Don’t make real calls to real servers in your tests, even if they’re local to your machine or CI container. Set up mocked responses when needed, and test that &lt;em&gt;your&lt;/em&gt; code is actually working, not theirs. (And seriously: watch that talk by Sandi Metz at least three more times until it really sticks. Your future self will thank you.)&lt;/p&gt;</content><author><name>Lindsey Anne</name><email>runongirlrunon@gmail.com</email></author><summary type="html">This post was originally published on 2016-12-29 when I was on the Data Engineering team at Grand Rounds. Enjoy!</summary></entry><entry><title type="html">Oh, hi there.</title><link href="https://runongirlrunon.github.io/oh-hi-there" rel="alternate" type="text/html" title="Oh, hi there." /><published>2018-10-09T00:00:00-07:00</published><updated>2018-10-09T00:00:00-07:00</updated><id>https://runongirlrunon.github.io/oh-hi-there</id><content type="html" xml:base="https://runongirlrunon.github.io/oh-hi-there">&lt;p&gt;It’s been just over a year since I updated this thing, so, figure it’s about time to post something.&lt;/p&gt;
 
 &lt;h3 id=&quot;quick-life-update&quot;&gt;Quick life update&lt;/h3&gt;
 &lt;p&gt;The last year has been a whirlwind. Moved into my first big kid apartment in November, graduated with my BS in CS from SFSU in December, took my mom on my first trip overseas to Rome in February, adopted an adorable little rescue pibble named Isis in April, released records with both of my two bands (within a week of each other, actually) in September. The other day, one of my bands opened for one of my favorite bands at one of my favorite venues, so I’m going to be riding that high for a while. Life is fantastic.&lt;/p&gt;
